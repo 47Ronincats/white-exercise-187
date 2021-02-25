@@ -1,0 +1,68 @@
+//AUTHOR: Joe White
+//COURSE: CPT187
+//PURPOSE: To design a list that contains a customer's selected purchase, including the ID, name, price, quantity, and total cost.
+//STARTDATE: 2/17/2021
+
+package edu.cpt187.white.exercise6;
+
+import java.io.PrintWriter;
+
+import java.io.FileWriter;
+
+import java.io.IOException;
+
+public class WriteOrder 
+{
+	//Variables
+	private boolean fileFoundFlag = false;
+	private String masterFileName = "";
+	private int recordCount = 0;
+
+	//Class constructor
+	public WriteOrder(String borrowedFileName)
+	{
+		masterFileName = borrowedFileName;
+	}//End of class constructor
+
+	//Writes the user's order into the master file
+	public void setWriteOrder(int borrowedItemID, String borrowedItemName, double borrowedItemPrice, int borrowedQuantity, double borrowedOrderCost)
+	{
+		//Try and write to masterFileName
+		try
+		{
+			PrintWriter filePW = new PrintWriter(new FileWriter(masterFileName, true));
+
+			filePW.printf("%d\t%s\t%f\t%d\t%f%n", borrowedItemID, borrowedItemName, borrowedItemPrice, borrowedQuantity, borrowedOrderCost);
+
+			fileFoundFlag = true;
+
+			recordCount++;
+
+			filePW.close();
+		}
+
+		//if masterFileName is not found fileFloundFlag is set to false
+		catch(IOException ex)
+		{
+			fileFoundFlag = false;
+		}
+	}//End of setWriteOrder method
+
+	//gets fileFoundFlag and returns it
+	public boolean getFileFoundFlag()
+	{
+		return fileFoundFlag;
+	}//End of getFileFoundFlag method
+
+	//Gets masterFileName and returns it
+	public String getFileName()
+	{
+		return masterFileName;
+	}//End of getFileName method
+
+	//Gets recordCount and returns it
+	public int getRecordCount()
+	{
+		return recordCount;
+	}//End of getRecordCount() method
+}//End of WriteOrder class
